@@ -13,3 +13,7 @@
 
 <h1>{{ newText }}</h1>
 <input type="text" (keyup.enter)="changeNewText($event)" />
+<hr />
+
+<h1>{{ city }}</h1>
+<input type="text" [(ngModel)]="city" />

@@ -42,4 +42,8 @@ export class AppComponent {
   changeNewText(event: Event) {
     this.newText = (event.currentTarget as HTMLInputElement).value
   }
+
+  //Two-way binding
+
+  city = 'London'
 }
