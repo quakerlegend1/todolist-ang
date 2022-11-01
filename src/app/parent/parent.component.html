@@ -1,0 +1,7 @@
+<div>
+  <h1>
+    Parent {{ firstName }} {{ lastName }} from {{ address.city }} {{ address.street }}
+    {{ address.house }}
+  </h1>
+</div>
+<inst-child [address]="address" [lastNameProps]="lastName"></inst-child>
