@@ -11,10 +11,11 @@ export interface Grades {
   styleUrls: ['./child.component.css'],
 })
 export class ChildComponent {
-  @Output() sendGradeEvent = new EventEmitter<Grades>()
+  @Output() sendGradeEvent = new EventEmitter<string>()
+
+  inputGrade = ''
+
   sendGradeHandler() {
-    const math = 5
-    const physic = 25
-    this.sendGradeEvent.emit({ math, physic })
+    this.sendGradeEvent.emit(this.inputGrade)
   }
 }
