@@ -1,2 +1,11 @@
-<inst-child (sendGradeEvent)="getGrade($event)"></inst-child>
-<div *ngFor="let el of grades; index as i">{{ i }} {{ el }}</div>
+<div *ngFor="let lesson of lessons">
+  <div>
+    <h3>{{ lesson.title }}</h3>
+    <div>
+      <h3>
+        Week grades:
+        <div *ngFor="let grade of lesson.weekGrades">{{ grade.gradeItem }}</div>
+      </h3>
+    </div>
+  </div>
+</div>
