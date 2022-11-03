@@ -1,1 +1,5 @@
-<div [ngStyle]="{ color: 'red', padding: '50px' }">{{ myString }}</div>
+<div *ngFor="let fruit of fruits; even as even; odd as odd">
+  <div *ngIf="fruit.price > 7" [ngClass]="{ even: even, odd: odd, bigPrice: fruit.price > 15 }">
+    <b>name</b>: {{ fruit.name }} <b>price</b>: {{ fruit.price }}
+  </div>
+</div>
