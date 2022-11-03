@@ -8,9 +8,16 @@ import { ValueService } from 'src/app/components/services/value.service'
 })
 export class CompAComponent implements OnInit {
   value = 0
+
   constructor(private valueService: ValueService) {}
 
   ngOnInit(): void {
-    this.value = this.valueService.value
+    this.valueService.value$.subscribe(data => {
+      this.value = data
+    })
+  }
+
+  addValueHandler() {
+    this.valueService.ad()
   }
 }
