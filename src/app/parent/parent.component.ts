@@ -12,6 +12,13 @@ interface Lesson {
   styleUrls: ['./parent.component.css'],
 })
 export class ParentComponent {
+  isLoading = true
+
+  constructor() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 4000)
+  }
   lessons: Lesson[] = [
     {
       id: 0,
