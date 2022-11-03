@@ -1,4 +1,7 @@
-.error {
-  color: red;
+.first {
+  color: blue;
+}
+
+.second {
   font-weight: bold;
 }

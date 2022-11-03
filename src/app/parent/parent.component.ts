@@ -12,5 +12,6 @@ interface Lesson {
   styleUrls: ['./parent.component.css'],
 })
 export class ParentComponent {
-  value: string = ''
+  myString = 'I am From Rechitsa'
+  age = 25
 }

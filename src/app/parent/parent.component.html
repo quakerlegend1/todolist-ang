@@ -1,8 +1,2 @@
-<input type="text" [(ngModel)]="value" />
-<div [ngSwitch]="value">
-  <div *ngSwitchCase="'1'">One</div>
-  <div *ngSwitchCase="'2'">Two</div>
-  <div *ngSwitchCase="'3'">Three</div>
-  <div *ngSwitchCase="'4'">Four</div>
-  <div *ngSwitchDefault class="error">Нет совпадений</div>
-</div>
+<div [ngClass]="{ first: myString.length > 2, second: age > 10 }">{{ myString }}</div>
+<input type="text" [(ngModel)]="age" />
