@@ -1,19 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-
-interface Todo {
-  addedDate: string
-  id: string
-  order: number
-  title: string
-}
-
-interface BaseResponse<T = {}> {
-  data: T
-  messages: string[]
-  fieldErrors: string[]
-  resultCode: number
-}
+import { Todo, TodosService } from 'src/app/services/todos.service'
 
 @Component({
   selector: 'inst-todos',
@@ -22,49 +8,31 @@ interface BaseResponse<T = {}> {
 })
 export class TodosComponent implements OnInit {
   todos: Todo[] = []
-  httpOptions = {
-    withCredentials: true,
-    headers: {
-      'API-KEY': '1cdd9f77-c60e-4af5-b194-659e4ebd5d41',
-    },
-  }
-  constructor(private http: HttpClient) {}
+
+  constructor(private todosService: TodosService) {}
 
   ngOnInit(): void {
     this.getTodos()
   }
 
   getTodos() {
-    this.http
-      .get<Todo[]>('https://social-network.samuraijs.com/api/1.0/todo-lists', this.httpOptions)
-      .subscribe((res: Todo[]) => {
-        this.todos = res
-      })
+    this.todosService.getTodos().subscribe((res: Todo[]) => {
+      this.todos = res
+    })
   }
 
   createTodo() {
     const randomNumber = Math.floor(Math.random() * 100)
     const title = 'Angular' + randomNumber
-    this.http
-      .post<
-        BaseResponse<{
-          item: Todo
-        }>
-      >('https://social-network.samuraijs.com/api/1.0/todo-lists', { title }, this.httpOptions)
-      .subscribe(res => {
-        const newTodo = res.data.item
-        this.todos.unshift(newTodo)
-      })
+    this.todosService.createTodo(title).subscribe(res => {
+      const newTodo = res.data.item
+      this.todos.unshift(newTodo)
+    })
   }
 
   deleteTodo(id: string) {
-    this.http
-      .delete<BaseResponse>(
-        `https://social-network.samuraijs.com/api/1.0/todo-lists/${id}`,
-        this.httpOptions
-      )
-      .subscribe(() => {
-        this.todos.filter(todo => todo.id !== id)
-      })
+    this.todosService.getTodos().subscribe(() => {
+      this.todos.filter(todo => todo.id !== id)
+    })
   }
 }
