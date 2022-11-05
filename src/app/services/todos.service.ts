@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject, Observable, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment'
-import { map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
 
 export interface Todo {
   addedDate: string
@@ -33,6 +33,11 @@ export class TodosService {
   getTodos() {
     this.http
       .get<Todo[]>(`${environment.baseUrl}/todo-lists`, this.httpOptions)
+      .pipe(
+        catchError(err => {
+          return throwError(err)
+        })
+      )
       .subscribe(todos => {
         this.todos$.next(todos)
       })
