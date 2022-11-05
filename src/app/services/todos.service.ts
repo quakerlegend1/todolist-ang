@@ -30,6 +30,7 @@ export class TodosService {
     },
   }
   constructor(private http: HttpClient) {}
+
   getTodos() {
     this.http
       .get<Todo[]>(`${environment.baseUrl}/todo-lists`, this.httpOptions)
