@@ -1,3 +1,6 @@
-<p>login works!</p>
-<input type="text" [formControl]="email" />
-<p>{{ email.value }}</p>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="email" />
+
+  <input type="password" formControlName="password" />
+  <button type="submit">Show</button>
+</form>

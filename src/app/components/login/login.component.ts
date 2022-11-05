@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
 
 @Component({
   selector: 'inst-login',
@@ -7,7 +7,13 @@ import { FormControl } from '@angular/forms'
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  email = new FormControl('initial value')
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  })
+  onSubmit() {
+    console.log(this.loginForm.value)
+  }
 
   constructor() {}
 }
