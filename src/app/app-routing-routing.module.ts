@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'todos', component: TodosComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:userId', component: ProfileComponent },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '404' },
 ]
