@@ -28,9 +28,9 @@ export class UsersService {
     headers: new HttpHeaders().append('api-key', environment.apiKey),
     withCredentials: true,
   }
-  getUsers(): Observable<User[]> {
+  getUsers(page: number): Observable<User[]> {
     return this.http
-      .get<UsersResponse>(`${environment.baseNetworkUrl}/users`, this.httpOptions)
+      .get<UsersResponse>(`${environment.baseNetworkUrl}/users?page=${page}`, this.httpOptions)
       .pipe(map(el => el.items))
   }
 }
