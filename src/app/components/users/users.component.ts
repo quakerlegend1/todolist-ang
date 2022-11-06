@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { User, UsersService } from 'src/app/components/services/users.service'
 import { Observable } from 'rxjs'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 
 @Component({
   selector: 'inst-users',
@@ -18,9 +18,9 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const page = Number(this.route.snapshot.queryParamMap.get('page'))
-    const currentPage = page ? page : 1
-    this.getUsers(currentPage)
+    this.route.queryParams.subscribe((params: Params) => {
+      this.getUsers(params['page'] ? params['page'] : 1)
+    })
   }
 
   getUsers(page: number) {
@@ -30,8 +30,15 @@ export class UsersComponent implements OnInit {
   nextUsersHandler() {
     const page = Number(this.route.snapshot.queryParamMap.get('page'))
     const nextPage = page ? page + 1 : 2
-    this.router.navigateByUrl(`/users?page=${nextPage}`).then(() => {
+    // 1 variant
+    /*this.router.navigateByUrl(`/users?page=${nextPage}`).then(() => {
       this.getUsers(nextPage)
+    })*/
+    // 2 variant
+    this.router.navigate(['/users'], {
+      queryParams: {
+        page: nextPage,
+      },
     })
   }
 }
