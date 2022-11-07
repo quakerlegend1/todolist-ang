@@ -24,13 +24,10 @@ export interface User {
 })
 export class UsersService {
   constructor(private http: HttpClient) {}
-  httpOptions = {
-    headers: new HttpHeaders().append('api-key', environment.apiKey),
-    withCredentials: true,
-  }
+
   getUsers(page: number): Observable<User[]> {
     return this.http
-      .get<UsersResponse>(`${environment.baseNetworkUrl}/users?page=${page}`, this.httpOptions)
+      .get<UsersResponse>(`${environment.baseNetworkUrl}/users?page=${page}`)
       .pipe(map(el => el.items))
   }
 }
