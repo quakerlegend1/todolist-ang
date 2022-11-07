@@ -6,13 +6,14 @@ import { TodosComponent } from 'src/app/components/todos/todos.component'
 import { UsersComponent } from 'src/app/components/users/users.component'
 import { ProfileComponent } from 'src/app/components/profile/profile.component'
 import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component'
+import { AuthGuard } from 'src/app/guards/auth.guard'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'todos', component: TodosComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'profile/:userId', component: ProfileComponent },
+  { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '404' },
 ]

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   baseUrl: 'https://social-network.samuraijs.com/api/1.1',
   baseNetworkUrl: 'https://social-network.samuraijs.com/api/1.0',
-  apiKey: '1cdd9f77-c60e-4af5-b194-659e4ebd5d41',
+  apiKey: '80c2f1d7-1a54-48d1-9219-ce9ef5aae102',
 }
 
 /*

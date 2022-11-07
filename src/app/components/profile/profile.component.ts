@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ProfileResponse, ProfileService } from 'src/app/components/services/profile.service'
+import { ProfileResponse, ProfileService } from 'src/app/services/profile.service'
 import { Observable } from 'rxjs'
 
 @Component({
