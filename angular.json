@@ -16,7 +16,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "inst",
+      "prefix": "tl",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
