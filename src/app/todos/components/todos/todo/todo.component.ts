@@ -12,6 +12,8 @@ export class TodoComponent {
   @Output() editTodoEvent = new EventEmitter<{ todoId: string; title: string }>()
   isEditMode = false
   newTitle = ''
+  constructor() {}
+
   deleteTodoHandler() {
     this.deleteTodoEvent.emit(this.todo.id)
   }
