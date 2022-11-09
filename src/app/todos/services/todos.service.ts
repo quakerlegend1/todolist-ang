@@ -52,4 +52,17 @@ export class TodosService {
         this.todos$.next(todos)
       })
   }
+  updateTodoTitle(todoId: string, title: string) {
+    this.http
+      .put<CommonResponseType>(`${environment.baseUrl}/todo-lists/${todoId}`, { title })
+      .pipe(
+        map(() => {
+          const stateTodo = this.todos$.getValue()
+          return stateTodo.map(todo => (todo.id === todoId ? { ...todo, title } : todo))
+        })
+      )
+      .subscribe(res => {
+        this.todos$.next(res)
+      })
+  }
 }
