@@ -8,4 +8,5 @@
   *ngFor="let task of tasks$ | async"
   [task]="task"
   (deleteTaskEvent)="deleteTask($event)"
+  (changeTaskEvent)="changeTaskStatus($event)"
 ></tl-task>

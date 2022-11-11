@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { TasksService } from 'src/app/todos/services/tasks.service'
 import { Observable } from 'rxjs'
-import { Task } from 'src/app/todos/models/tasks.models'
+import { Task, UpdateTaskRequest } from 'src/app/todos/models/tasks.models'
 import { map } from 'rxjs/operators'
 
 @Component({
@@ -33,5 +33,9 @@ export class TasksComponent implements OnInit {
 
   deleteTask(taskId: string) {
     this.tasksService.deleteTask(this.todoId, taskId)
+  }
+
+  changeTaskStatus(event: { taskId: string; newTask: UpdateTaskRequest }) {
+    this.tasksService.updateTask(this.todoId, event.taskId, event.newTask)
   }
 }
