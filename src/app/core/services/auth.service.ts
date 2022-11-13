@@ -4,22 +4,17 @@ import { environment } from 'src/environments/environment'
 import { CommonResponseType } from 'src/app/core/models/core.models'
 import { ResultCodeEnum } from 'src/app/core/enums/resultCode.enum'
 import { Router } from '@angular/router'
-
-export interface LoginRequestData {
-  email: string
-  password: string
-  rememberMe: boolean
-}
-
-export interface MeResponse {
-  email: string
-  id: number
-  login: string
-}
+import { LoginRequestData, MeResponse } from 'src/app/core/models/auth.models'
 
 @Injectable()
 export class AuthService {
   isAuth = false
+
+  resolveAuthRequest: Function = () => {}
+
+  authRequest = new Promise(resolve => {
+    this.resolveAuthRequest = resolve
+  })
 
   constructor(private http: HttpClient, private router: Router) {}
   login(data: LoginRequestData) {
@@ -46,6 +41,7 @@ export class AuthService {
         if (res.resultCode === ResultCodeEnum.success) {
           this.isAuth = true
         }
+        this.resolveAuthRequest()
       })
   }
 }
