@@ -3,7 +3,6 @@ import { TodosService } from 'src/app/todos/services/todos.service'
 import { Observable } from 'rxjs'
 import { DomainTodo } from 'src/app/todos/models/todos.models'
 import { AuthService } from 'src/app/core/services/auth.service'
-import { LoggerService } from 'src/app/shared/services/logger.service'
 
 @Component({
   selector: 'tl-todos',
@@ -13,17 +12,12 @@ import { LoggerService } from 'src/app/shared/services/logger.service'
 export class TodosComponent implements OnInit {
   todos$?: Observable<DomainTodo[]>
   todoTitle = ''
-  constructor(
-    private todosService: TodosService,
-    private authService: AuthService,
-    private loggerService: LoggerService
-  ) {}
+  constructor(private todosService: TodosService, private authService: AuthService) {}
 
   ngOnInit(): void {
     //subscribe
     this.todos$ = this.todosService.todos$
     this.todosService.getTodos()
-    this.loggerService.warn(`get todos from server `)
   }
 
   addTodoHandler() {

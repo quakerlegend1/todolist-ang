@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, EMPTY } from 'rxjs'
 import { DomainTodo, FilterType, Todo } from 'src/app/todos/models/todos.models'
 import { CommonResponseType } from 'src/app/core/models/core.models'
-import { map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
+import { LoggerService } from 'src/app/shared/services/logger.service'
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,13 @@ import { map } from 'rxjs/operators'
 export class TodosService {
   todos$ = new BehaviorSubject<DomainTodo[]>([])
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loggerService: LoggerService) {}
 
   getTodos() {
     this.http
       .get<Todo[]>(`${environment.baseUrl}/todo-lists`)
       .pipe(
+        catchError(this.errorHandler.bind(this)),
         map(todos => {
           const newTodos: DomainTodo[] = todos.map(el => ({ ...el, filter: 'all' }))
           return newTodos
@@ -78,5 +80,10 @@ export class TodosService {
     const stateTodos = this.todos$.getValue()
     const newTodos: DomainTodo[] = stateTodos.map(el => (el.id === todoId ? { ...el, filter } : el))
     this.todos$.next(newTodos)
+  }
+
+  private errorHandler(err: HttpErrorResponse) {
+    this.loggerService.warn(err.message)
+    return EMPTY
   }
 }
