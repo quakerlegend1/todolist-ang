@@ -7,13 +7,12 @@ import { AppRoutingModule } from 'src/app/app-routing.module'
 import { CoreModule } from 'src/app/core/core.module'
 import { HttpClientModule } from '@angular/common/http'
 import { SharedModule } from 'src/app/shared/shared.module'
-import { LogService } from 'src/app/shared/services/log.service'
-import { LogPublishersService } from 'src/app/shared/services/log-publishers.service'
+import { LoggerService } from 'src/app/shared/services/logger.service'
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, CoreModule, HttpClientModule, SharedModule],
-  providers: [LogService, LogPublishersService],
+  providers: [LoggerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
