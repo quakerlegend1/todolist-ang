@@ -10,6 +10,6 @@ export class LogTestComponent {
   constructor(private logger: LogService) {}
 
   testLog(): void {
-    this.logger.info('Test the `log()` Method', [1, 'lalaa', 56])
+    this.logger.info('Test the `log()` Method', [1, 'Bobi', 56])
   }
 }

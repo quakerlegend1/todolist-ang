@@ -1,4 +1,3 @@
-import 'rxjs/add/observable/of'
 import { LogEntry } from 'src/app/shared/services/log.service'
 
 import { Observable } from 'rxjs'
