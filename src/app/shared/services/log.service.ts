@@ -71,7 +71,7 @@ export class LogService {
       entry.extraInfo = params
       entry.logWithDate = this.logWithDate
       for (let logger of this.publishers) {
-        logger.log(entry).subscribe((response: any) => console.log(response))
+        logger.log(entry).subscribe((response: any) => console.log(response, 'fsfdsfsd'))
       }
     }
   }
