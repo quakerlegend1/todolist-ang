@@ -47,6 +47,7 @@ export class TodosService {
 
       .subscribe((res: DomainTodo[]) => {
         this.todos$.next(res)
+        this.loggerService.info(`add todo ${title}`, this.constructor.name)
       })
   }
 
@@ -83,7 +84,7 @@ export class TodosService {
   }
 
   private errorHandler(err: HttpErrorResponse) {
-    this.loggerService.warn(err.message)
+    this.loggerService.warn(err.message, this.constructor.name)
     return EMPTY
   }
 }

@@ -33,6 +33,6 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loggerService.info(`get Todo: ${this.todo.title}`)
+    this.loggerService.info(`get Todo: ${this.todo.title}`, this.constructor.name, this.todo)
   }
 }
