@@ -5,7 +5,8 @@
   width: 200px;
   display: flex;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
+  background-color: rgba(52, 35, 38, 0.75);
 }
 
 .todo-header {
