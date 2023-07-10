@@ -41,9 +41,7 @@ export class TodosService {
           const newTodo: DomainTodo = { ...res.data.item, filter: 'all' }
           return [newTodo, ...stateTodos]
         })
-      )
-
-      .subscribe((res: DomainTodo[]) => {
+      ).subscribe((res: DomainTodo[]) => {
         this.todos$.next(res)
       })
   }
@@ -56,8 +54,7 @@ export class TodosService {
           const stateTodo = this.todos$.getValue()
           return stateTodo.filter(el => el.id !== todoId)
         })
-      )
-      .subscribe(todos => {
+      ).subscribe(todos => {
         this.todos$.next(todos)
       })
   }
@@ -69,8 +66,7 @@ export class TodosService {
           const stateTodo = this.todos$.getValue()
           return stateTodo.map(todo => (todo.id === todoId ? { ...todo, title } : todo))
         })
-      )
-      .subscribe(res => {
+      ).subscribe(res => {
         this.todos$.next(res)
       })
   }

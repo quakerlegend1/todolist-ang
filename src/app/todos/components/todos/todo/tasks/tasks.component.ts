@@ -5,6 +5,7 @@ import { Task, UpdateTaskRequest } from 'src/app/todos/models/tasks.models'
 import { map } from 'rxjs/operators'
 import { TodosService } from 'src/app/todos/services/todos.service'
 import { TaskStatusEnum } from 'src/app/core/enums/taskStatus.enum'
+import { MyLoggerService } from 'src/myLogger.service'
 
 @Component({
   selector: 'tl-tasks',
@@ -15,7 +16,7 @@ export class TasksComponent implements OnInit {
   @Input() todoId!: string
   tasks$?: Observable<Task[]>
   taskTitle = ''
-  constructor(private tasksService: TasksService, private todosService: TodosService) {}
+  constructor(private tasksService: TasksService, private todosService: TodosService, private myLogger:MyLoggerService) {}
 
   ngOnInit(): void {
     //subscribe
@@ -40,13 +41,16 @@ export class TasksComponent implements OnInit {
   addTaskHandler() {
     this.tasksService.addTask(this.todoId, this.taskTitle)
     this.taskTitle = ''
+    this.myLogger.warn("Новая задача, здорово!😀")
   }
 
   deleteTask(taskId: string) {
     this.tasksService.deleteTask(this.todoId, taskId)
+    this.myLogger.error("Вы удалили задачу!😞")
   }
 
   changeTaskStatus(event: { taskId: string; newTask: UpdateTaskRequest }) {
     this.tasksService.updateTask(this.todoId, event.taskId, event.newTask)
+    
   }
 }

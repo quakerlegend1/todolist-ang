@@ -15,8 +15,13 @@ import { CommonResponseType } from 'src/app/core/models/core.models'
   providedIn: 'root',
 })
 export class TasksService {
+  // 
+
   tasks$ = new BehaviorSubject<DomainTask>({})
+  baseUrl: any
+
   constructor(private http: HttpClient) {}
+
   getTasks(todoId: string) {
     this.http
       .get<GetTasksResponse>(`${environment.baseUrl}/todo-lists/${todoId}/tasks`)
@@ -26,7 +31,9 @@ export class TasksService {
         stateTasks[todoId] = res
         this.tasks$.next(stateTasks)
       })
+      
   }
+
   addTask(todoId: string, title: string) {
     this.http
       .post<CommonResponseType<{ item: Task }>>(
@@ -39,6 +46,7 @@ export class TasksService {
           const newTask = res.data.item
           const newTasks = [newTask, ...stateTasks[todoId]]
           stateTasks[todoId] = newTasks
+          // console.log(Array.isArray(newTasks))
           return stateTasks
         })
       )
@@ -46,6 +54,7 @@ export class TasksService {
         this.tasks$.next(res)
       })
   }
+
   deleteTask(todoId: string, taskId: string) {
     this.http
       .delete<CommonResponseType>(`${environment.baseUrl}/todo-lists/${todoId}/tasks/${taskId}`)

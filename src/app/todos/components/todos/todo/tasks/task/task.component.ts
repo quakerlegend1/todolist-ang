@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { Task, UpdateTaskRequest } from 'src/app/todos/models/tasks.models'
 import { TaskStatusEnum } from 'src/app/core/enums/taskStatus.enum'
+import { MyLoggerService } from 'src/myLogger.service'
 
 @Component({
   selector: 'tl-task',
@@ -8,6 +9,7 @@ import { TaskStatusEnum } from 'src/app/core/enums/taskStatus.enum'
   styleUrls: ['./task.component.css'],
 })
 export class TaskComponent {
+  constructor(private myLogger:MyLoggerService) { }
   @Input() task!: Task
   @Output() deleteTaskEvent = new EventEmitter<string>()
   @Output() changeTaskEvent = new EventEmitter<{ taskId: string; newTask: UpdateTaskRequest }>()
@@ -17,6 +19,7 @@ export class TaskComponent {
 
   deleteTaskHandler() {
     this.deleteTaskEvent.emit(this.task.id)
+    
   }
 
   changeTaskStatusHandler(event: MouseEvent) {
@@ -25,6 +28,7 @@ export class TaskComponent {
     this.changeTask({
       status: newStatus ? this.taskStatusEnum.completed : this.taskStatusEnum.active,
     })
+    this.myLogger.warn("Вы изменили статус задачи")
   }
 
   activateEditModeHandler() {
@@ -36,6 +40,7 @@ export class TaskComponent {
     this.editMode = false
     this.changeTask({ title: this.newTitle })
     this.newTitle = ''
+    
   }
 
   changeTask(patch: Partial<UpdateTaskRequest>) {

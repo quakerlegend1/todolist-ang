@@ -11,7 +11,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 
 @Injectable()
 export class AuthService {
-  isAuth = false
+   isAuth = false
 
   resolveAuthRequest: Function = () => {}
 
@@ -24,18 +24,26 @@ export class AuthService {
     private router: Router,
     private notificationService: NotificationService
   ) {}
+
+  private errorHandler(err: HttpErrorResponse) {
+    this.notificationService.handleError(err.message)
+    return EMPTY
+  }
+
   login(data: LoginRequestData) {
     this.http
       .post<CommonResponseType<{ userId: number }>>(`${environment.baseUrl}/auth/login`, data)
       .pipe(catchError(this.errorHandler.bind(this)))
       .subscribe(res => {
         if (res.resultCode === ResultCodeEnum.success) {
+          this.isAuth = true;
           this.router.navigate(['/'])
         } else {
           this.notificationService.handleError(res.messages[0])
         }
       })
   }
+
   logout() {
     this.http
       .delete<CommonResponseType>(`${environment.baseUrl}/auth/login`)
@@ -57,9 +65,5 @@ export class AuthService {
         }
         this.resolveAuthRequest()
       })
-  }
-  private errorHandler(err: HttpErrorResponse) {
-    this.notificationService.handleError(err.message)
-    return EMPTY
   }
 }
